@@ -4,9 +4,10 @@ import { expressMiddleware } from "@as-integrations/express5";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
-import { authMiddleware } from "./Middleware/Auth.js";
-import { typeDefs } from "./graphql/schema.js"; 
-import { resolvers } from "./graphql/schema.js"; 
+import authMiddleware from "./Middleware/Auth.js";
+import { typeDefs } from "./graphql/schema.js";
+import { resolvers } from "./graphql/schema.js";
+import  accountRoutes  from "./routes/accountRoutes.js";
 
 dotenv.config();
 
@@ -21,6 +22,8 @@ const server = new ApolloServer({
 
 const startServer = async () => {
   await server.start();
+
+  app.use("/api/accounts", accountRoutes);
 
   app.use(
     "/graphql",
